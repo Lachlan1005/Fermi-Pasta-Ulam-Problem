@@ -223,8 +223,8 @@ will show a large amplitude for the desired mode $k$ and very low (zero) amplitu
 However, it has been found that if the initial conditions deviate from the expected $\phi_{ki}$ 
 even for just a littile bit, the amplitude will "spread" from 
 the $k$-th mode to the other modes, resulting in high amplitudes in the other modes over time.
-\section{Examples}
-Here are some examples from the Python code, implementing the methods outlined in the previous sections.
+\section{Results}
+Here are some results and examples from the Python code, implementing the methods outlined in the previous sections.
 \subsection{Quadratic Perturbation}
 Here we will demonstrate the results when $\gamma=2$, which corresponds to the FPU-$\alpha$ problem.
 \subsubsection{Testing with a Known Case}
@@ -254,6 +254,27 @@ figure 5. Notice that immediately, some Fourier amplitude gets "transferred" int
 Here we will impose upon the system of 4 masses an arbitrary set of initial conditions, with $\alpha=1/4$ and 
 observe the behaviour. This results in figure 6. Notice that one mode still dominates over the other, however 
 the oscillations are now a combination of the modes.
+\subsection{The Paradox}
+In the modal spectra plots, we see that the first (excited) mode gradually decreases
+in Fourier amplitude and the rest has its Fourier amplitudes gradually increase.
+It may be tempting the think that if we let the simulation run long enough, that there will 
+be a stable point where all the modes balance and the Fourier amplitudes do not change. In oter words, 
+the system will thermalise. However, our results shown in figure 7 tells a different story. Here, 
+we run a much longer and large scale simulation, with $\alpha=0.6$ and 32 masses for a max time of 
+36000 to observe the long term behaviour of the system. 
+We also start the simulation by imposing initial conditions that excite the mode $k=1$. 
+ we observe the classic FPU paradox - 
+instead of reaching equilibrium, the modes oscillate. For example, mode 1 starts decreasing and 
+mode 2 increases, but after sufficient time, mode 2 will start decreasing and mode 1 will increase again. 
+This periodic behaviour was the original paradox, discovered by Fermi, Pasta and Ulam. 
+In this simulation, the maximum Fourier amplidue for mode 1 decreases every major cycle.
+This raises the question of whether or not there is a bigger cycle, or does 
+the system truly thermalise for large enough times.
+Unfortunately, this simulation was already heavy for the Macbook and the system is 
+nowhere near thermalising. Thus we can only conclude that even if the system thermalises,
+ the timescales required is too large to simulate on a typical computer. 
+
+
 \section{Figures}
 \begin{center}
     \includegraphics[scale=.33]{2mass.png}\\ 
@@ -267,6 +288,8 @@ the oscillations are now a combination of the modes.
     \includegraphics[scale=.5]{modea25k1.png}\\ 
     (Fig. 5)\\ 
     \includegraphics[scale=.5]{modea25arb.png}\\ 
-    (Fig. 6)
+    (Fig. 6)\\ 
+    \includegraphics[scale=.36]{modea6k1.png}\\ 
+    (Fig. 7)
 \end{center} 
 \end{document}

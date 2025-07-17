@@ -81,8 +81,8 @@ def plotHamiltonian(N, alpha, initConds, tMax, iters):
         plt.plot(times,targetEnergies,label="Mass "+str(target+1))
         target+=1
     plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
-    plt.xlabel("Time (s)")
-    plt.ylabel("Energy (J)")
+    plt.xlabel("Time")
+    plt.ylabel("Energy")
     plt.show()
     return None
 
@@ -151,8 +151,8 @@ def terminalWizard():
     else:
         plt.title(r"Quadratic Fermi-Pasta-Ulam Problem for $\alpha$="+str(round(alpha*100)/100)+ ", N="+str(N)+" ("+str(N+1)+" masses)")
     plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
-    plt.xlabel("Time (s)")
-    plt.ylabel("Position (m)")
+    plt.xlabel("Time")
+    plt.ylabel("Position")
     plt.show()
     return sol
 

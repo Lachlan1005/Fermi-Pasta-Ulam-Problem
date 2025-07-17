@@ -34,6 +34,7 @@ def plotSpectra(N, alpha, initConds, tMax, iters, nonLin=2):
     """
     Plot the modal spectrum of the FPU chain
     """
+    print("Solver running...")
     times, FTdisp, FTmom  = modalSpectra(N, alpha, initConds, tMax, iters, nonLin)
     for i in range(N+1):
         plt.plot(times, FTdisp[i], label="Mode k="+str(i))
@@ -41,9 +42,9 @@ def plotSpectra(N, alpha, initConds, tMax, iters, nonLin=2):
         plt.title(r"Modal Spectra for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
     else:
         plt.title(r"Modal Spectra for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Modal spectrum (1)")
-    plt.legend()
+    plt.xlabel("Time")
+    plt.ylabel("Modal spectrum")
+    plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
     plt.show()
     return None
 
@@ -63,9 +64,9 @@ def exciteMode(N, k):
 
 def terminalWizard():
     print("=== FPU Spectral Analyser ===")
-    N=int(input("Enter the number of masses: ")-1)
+    N=int(input("Enter the number of masses: "))-1
     nonLin=int(input("Enter the nonlinearity exponent (2 or 3): "))
-    alpha=int(input("Enter the nonlinearity coefficient: "))
+    alpha=float(input("Enter the nonlinearity coefficient: "))
     custom= int(input("Enter 0 for custom initial conditions or1 to Excite a mode ")) 
     if custom==0:
         initConds=fpu.automaticInitialiser(N)
@@ -73,7 +74,7 @@ def terminalWizard():
         k=int(input("Enter the mode you want to excite: "))
         initConds=exciteMode(N,k)
     tMax=float(input("Enter the maximum simulation time: "))
-    iters=float(input("Enter the maximum simulation timesteps: "))
+    iters=int(input("Enter the maximum simulation timesteps: "))
     return plotSpectra(N,alpha,initConds,tMax, iters, nonLin)
 
 #print(exciteMode(3,1))

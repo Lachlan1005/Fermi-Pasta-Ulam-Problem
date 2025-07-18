@@ -45,8 +45,8 @@ def plotSpectra(N, alpha, initConds, tMax, iters, nonLin=2):
     plt.xlabel("Time")
     plt.ylabel("Modal spectrum")
     plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
+    print("Solving complete. See output plot for results.")
     plt.show()
-    print("Solving complete. See output plot for results")
     return None
 
 def exciteMode(N, k):

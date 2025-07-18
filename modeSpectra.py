@@ -46,6 +46,7 @@ def plotSpectra(N, alpha, initConds, tMax, iters, nonLin=2):
     plt.ylabel("Modal spectrum")
     plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
     plt.show()
+    print("Solving complete. See output plot for results")
     return None
 
 def exciteMode(N, k):
@@ -67,7 +68,7 @@ def terminalWizard():
     N=int(input("Enter the number of masses: "))-1
     nonLin=int(input("Enter the nonlinearity exponent (2 or 3): "))
     alpha=float(input("Enter the nonlinearity coefficient: "))
-    custom= int(input("Enter 0 for custom initial conditions or1 to Excite a mode ")) 
+    custom= int(input("Enter 0 for custom initial conditions or 1 to Excite a mode: ")) 
     if custom==0:
         initConds=fpu.automaticInitialiser(N)
     else: 

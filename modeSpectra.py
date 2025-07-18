@@ -79,7 +79,7 @@ def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2):
         plt.plot(times, localEnergies, label="Mode "+str(k))
         k+=1
     print("Solving complete. See output plot for results.")
-    plt.legend()
+    plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
     if nonLin==2:
         plt.title(r"Spectra Energies for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
     else:

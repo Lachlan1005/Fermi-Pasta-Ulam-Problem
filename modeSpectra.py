@@ -23,7 +23,8 @@ def normalModes(N):
 
 def modalSpectra(N, alpha, initConds, tMax, iters, nonLin=2):
     """
-    Compute the modal spectrum of the FPU chain
+    Compute the modal spectrum of the FPU chain. Projects the displacement and momenta
+    onto the normal mode basis. Transforms from time (t) domain into mode (k) domain. 
     """
     times, momenta, displacements = fpu.solverFunc(N,alpha, initConds, tMax, iters, nonLin)
     FTdisp = np.array(normalModes(N)) @ np.array(displacements)
@@ -63,6 +64,31 @@ def exciteMode(N, k):
         i+=2 
     return initConds
 
+def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2):
+    """
+    Plot the spectral energies of the modes. Compute the energies in 
+    accordance to the original FPU paper. 
+    """
+    print("Solver running...")
+    times, FTdisp, FTmom = modalSpectra(N, alpha, initConds, tMax, iters, nonLin)
+    k=0 
+    energies=[]
+    while k<N:
+        localEnergies=0.5*FTmom[k]**2+ 2* (FTdisp[k]**2) *((np.pi*k)/(2*N))**2
+        energies.append(localEnergies)
+        plt.plot(times, localEnergies, label="Mode "+str(k))
+        k+=1
+    print("Solving complete. See output plot for results.")
+    plt.legend()
+    if nonLin==2:
+        plt.title(r"Spectra Energies for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+    else:
+        plt.title(r"Spectra Energies for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+    plt.xlabel("Time")
+    plt.ylabel("Spectral Energy")
+    plt.show()
+    return times, energies
+
 def terminalWizard():
     print("=== FPU Spectral Analyser ===")
     N=int(input("Enter the number of masses: "))-1
@@ -78,6 +104,21 @@ def terminalWizard():
     iters=int(input("Enter the maximum simulation timesteps: "))
     return plotSpectra(N,alpha,initConds,tMax, iters, nonLin)
 
+def energyWizard():
+    print("=== FPU Spectral Energy Analyser ===")
+    N=int(input("Enter the number of masses: "))-1
+    nonLin=int(input("Enter the nonlinearity exponent (2 or 3): "))
+    alpha=float(input("Enter the nonlinearity coefficient: "))
+    custom= int(input("Enter 0 for custom initial conditions or 1 to Excite a mode: ")) 
+    if custom==0:
+        initConds=fpu.automaticInitialiser(N)
+    else: 
+        k=int(input("Enter the mode you want to excite: "))
+        initConds=exciteMode(N,k)
+    tMax=float(input("Enter the maximum simulation time: "))
+    iters=int(input("Enter the maximum simulation timesteps: "))
+    return plotEnergies(N,alpha,initConds,tMax, iters, nonLin)
+
 #print(exciteMode(3,1))
 #plotSpectra(3, 1/4 , [0,1.08,0,0.9,0,1.05,0,1.03], 10, 500000, 2)
-#plotSpectra(3, 1/4 , exciteMode(3,1), 30, 500000, 2)
+#plotEnergies(3, 1/4 , exciteMode(3,1), 30, 500000, 2)

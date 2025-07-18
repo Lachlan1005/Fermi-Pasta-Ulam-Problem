@@ -1,6 +1,6 @@
 # Fermi-Pasta-Ulam Problem
 
-This project provides the tools to solve the problem proposed by Fermi, Pasta, and Ulam (FPU) in their paper *"Studies of Non Linear Dynamics"* published in 1955. This includes the unperturbed case, as well as the 
+This project provides the tools to solve the problem proposed by Fermi, Pasta, and Ulam (FPU) in their famous *"Studies of Non Linear Dynamics"* paper, published in 1955. This includes the unperturbed case, as well as the 
 FPU - $\alpha$ and FPU - $\beta$ cases.
 
 ## Unperturbed Case

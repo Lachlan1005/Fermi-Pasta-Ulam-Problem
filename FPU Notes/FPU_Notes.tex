@@ -179,7 +179,7 @@ $\alpha=0$. We can then
 displace the masses identically and release from rest. If this results in a normal mode, then the code is likely to be correct.
 
 \section{Modal Spectra}
-The mode spectra of the FPU oscillator can be found as the Fourier sine 
+The mode spectra of the FPU oscillator can be found as the spatial Fourier sine 
 transform of the displacement. The discrete Fourier coefficient $\phi_{ik}$ for the 
 $i-$th particle in the $k$-th mode is well known to be 
 \begin{align}
@@ -187,7 +187,7 @@ $i-$th particle in the $k$-th mode is well known to be
 \end{align}
 We can thus construct the matrix $\phi_{ki}$ where the rows represent modes and 
 columns represent particles. If we extract only the displacement from the state vector
-and write out all its time evlolution on the rows, then we obtain 
+and write out all its time evolution on the rows, then we obtain 
 \begin{align}
     d_{it}=\begin{bmatrix}
         x_0(0)& x_0(t_1) & x_0(t_2) &\cdots \ \  x_0(t_f)\\ 
@@ -204,7 +204,7 @@ Notice the $t$ in the subscript means that we must apply the transformation acro
 all time. Notice that we sum across all $i$, and 
 $i$ is an index that appears in both $d_{it}$ and $\phi_{ik}$. This "summing over repeated index"
 is equivalent to the matrix product.
- Hence, the Fourier coefficeints for every point in time $t$ can be found by 
+ Hence, the Fourier coefficients for every point in time $t$ can be found by 
 the following product 
 \begin{align}
     a_{kt}=\phi_{ki}d_{it}
@@ -258,7 +258,7 @@ the oscillations are now a combination of the modes.
 In the modal spectra plots, we see that the first (excited) mode gradually decreases
 in Fourier amplitude and the rest has its Fourier amplitudes gradually increase.
 It may be tempting the think that if we let the simulation run long enough, that there will 
-be a stable point where all the modes balance and the Fourier amplitudes do not change. In oter words, 
+be a stable point where all the modes balance and the Fourier amplitudes do not change. In other words, 
 the system will thermalise. However, our results shown in figure 7 tells a different story. Here, 
 we run a much longer and large scale simulation, with $\alpha=0.6$ and 32 masses for a max time of 
 36000 to observe the long term behaviour of the system. 
@@ -268,13 +268,30 @@ instead of reaching equilibrium, the modes oscillate. For example, mode 1 starts
 mode 2 increases, but after sufficient time, mode 2 will start decreasing and mode 1 will increase again. 
 This periodic behaviour was the original paradox, discovered by Fermi, Pasta and Ulam. 
 In this simulation, the maximum Fourier amplidue for mode 1 decreases every major cycle.
+We also compute the 
+spectral energies for the system, shown in figure 8. Here we see the same phenomenon 
+from an energetics perspective - the energies gets 
+periodically transferred from mode to mode. In the beginning,
+ mode $k=1$ (the mode we excited initially) has the most energy. Later, 
+other modes take over as having the highest energy. This "highest energy mode" is transferred 
+between modes $k=2,3,4,...$ one by one until eventually, mode $k=1$ 
+gains the most energy again, and the cycle continues. 
 This raises the question of whether or not there is a bigger cycle, or does 
-the system truly thermalise for large enough times.
+the system truly thermalise for large enough times. 
 Unfortunately, this simulation was already heavy for the Macbook and the system is 
-nowhere near thermalising. Thus we can only conclude that even if the system thermalises,
- the timescales required is too large to simulate on a typical computer. 
-
-
+nowhere near thermalising. We can only conclude that even if the system thermalises,
+the timescales required is too large to simulate on a typical computer. 
+\subsection{Analogous Autoparametric Systems}
+The traversal between modes is analogous to an autoparametric oscillator. 
+Consider a mass attached to a spring, where the spring is hung from a ceiling and 
+is free to swing in a plane, resulting in a mix between spring and pendulum motion. 
+Such a system is "autoparametric", meaning that the mass will first trace out 
+the spring motion, bobbing up and down, and then soon becoming pendulum-like,
+ swinging side to side. Over time, the 
+spring motion transforms into the pendulum motion and back, 
+indefinitely.
+The spring and pendulum motion can be 
+thought as two different modes of which the system travels between.
 \section{Figures}
 \begin{center}
     \includegraphics[scale=.33]{2mass.png}\\ 

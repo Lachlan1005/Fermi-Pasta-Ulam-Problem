@@ -257,20 +257,22 @@ the oscillations are now a combination of the modes.
 \subsection{The Paradox}
 In the modal spectra plots, we see that the first (excited) mode gradually decreases
 in Fourier amplitude and the rest has its Fourier amplitudes gradually increase.
-It may be tempting the think that if we let the simulation run long enough, that there will 
+It may be tempting the think that if we let the simulation run long enough,
+ that there will 
 be a stable point where all the modes balance and the Fourier amplitudes do not change. In other words, 
 the system will thermalise. However, our results shown in figure 7 tells a different story. Here, 
 we run a much longer and large scale simulation, with $\alpha=0.6$ and 32 masses for a max time of 
 36000 to observe the long term behaviour of the system. 
-We also start the simulation by imposing initial conditions that excite the mode $k=1$. 
+We also start the simulation by imposing initial conditions that excite mode $k=1$. 
  we observe the classic FPU paradox - 
-instead of reaching equilibrium, the modes oscillate. For example, mode 1 starts decreasing and 
-mode 2 increases, but after sufficient time, mode 2 will start decreasing and mode 1 will increase again. 
+instead of equipartitioning (same amplitude for all modes in equilibrium), the modes oscillate. For example, mode 1 starts decreasing and 
+mode 2 increases, but after sufficient time, mode 2 will star
+ decreasing and mode 1 will increase again. 
 This periodic behaviour was the original paradox, discovered by Fermi, Pasta and Ulam. 
 In this simulation, the maximum Fourier amplidue for mode 1 decreases every major cycle.
 We also compute the 
 spectral energies for the system, shown in figure 8. Here we see the same phenomenon 
-from an energetics perspective - the energies gets 
+in terms of the energy - the energies gets 
 periodically transferred from mode to mode. In the beginning,
  mode $k=1$ (the mode we excited initially) has the most energy. Later, 
 other modes take over as having the highest energy. This "highest energy mode" is transferred 

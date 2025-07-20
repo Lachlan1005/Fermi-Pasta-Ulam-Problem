@@ -129,7 +129,7 @@ gets much longer with every mass added to the chain.
 
 \section{Nonlinear Perturbation}
 We now perturb the spring potential by a nonlinear term. Let $\alpha$ be a small 
-positive number. The new Hamiltonian is therefore 
+positive number. Applying the perturbation, the Hamiltonian is thus given by 
 \begin{align}
     H=\frac{1}{2}\sum_{i=0}^Np_i^2+\frac{1}{2}\sum_{i=0}^N[  (x_{i+1}-x_i)^2 + \alpha (x_{i+1}-x_i)^\gamma ]
 \end{align}
@@ -152,7 +152,7 @@ into one state vector
     x_N
     \end{bmatrix}
 \end{align}
-If we denote $\ve{v}=v^\mu$ where $\mu=\{ 0, 1, 2, ..., 2N\}$, 
+If we denote $\ve{v}=v^\mu$ where $\mu=\{ 0, 1, 2, ..., 2N-1\}$, 
 then an even $\mu$ denotes momenta  and an odd $\mu$ denotes position.
 From (15), we can specify the initial conditions by specifying $\ve{v}(0)$.
 Similarly, we can construct a vector 
@@ -216,14 +216,20 @@ in (18) but with momenta, and projecting that onto the basis matrix $\phi_{ki}$,
 the Fourier sine transform of momenta.
 
 \subsection{Excitatation of Modes}
-To excite a certain mode, say the $k$-th mode, all we have to do is initialise the state vector 
-in a way such that 
-the initial displacement matches up exactly with the Fourier coefficient $\phi_{ki}$ for the 
-$i$-th particle in that $k$-th mode. When the initial conditions are set up this way, the mode spectra 
-will show a large amplitude for the desired mode $k$ and very low (zero) amplitudes for the other modes.
-However, it has been found that if the initial conditions deviate from the expected $\phi_{ki}$ 
-even for just a littile bit, the amplitude will "spread" from 
-the $k$-th mode to the other modes, resulting in high amplitudes in the other modes over time.
+To excite a certain mode, say the $k$-th mode, 
+all we have to do is initialise the state vector 
+in a way such that all the masses'
+the initial displacements matches up
+ exactly with the Fourier coefficient $\phi_{ki}$ in that $k$-th mode (Each mass
+ will have a different initial displacement that corresponds to the mode). When the initial conditions are set up this way, the mode spectra 
+will show a large amplitude for the desired mode $k$ and zero amplitude
+ for the other modes.
+Under nonlinear perturbation, 
+the amplitude will "spread" from 
+the $k$-th mode to the other modes, 
+resulting in high amplitudes in the other modes over time. This contrasts with the linear case, 
+whereby if the initial conditions are set up perfectly, 
+only one mass will be excited for all time.
 \section{Results}
 Here are some results and examples from the Python code, implementing the methods outlined in the previous sections.
 \subsection{Quadratic Perturbation}
@@ -250,7 +256,11 @@ conditions such that they match up with the $k=1$ mode.
 Again, we will be dealing with 4 masses and testing with no nonlinearity. This results in 
 figure 4. Notice that all other modes are 0 except for the $k=1$ mode. This is what we expect. 
 We can now see what happens when there exists some nonlineariy, say $\alpha=1/4$. This results in 
-figure 5. Notice that immediately, some Fourier amplitude gets "transferred" into the second mode. 
+figure 5. Notice that immediately, some Fourier amplitude gets 
+"transferred" into the second mode. The $k=1$ mode is gradually decreasing in Fourier amplitude 
+and the $k=2$ mode is gradually increasing. It may be interesting to run the simulation for a longer 
+period of time to see what this leads to. Perhaps there exists a state where the decrease and 
+increase stops and the system reaches equilibrium.
 \subsubsection{Arbitrary Initial Conditions}
 Here we will impose upon the system of 4 masses an arbitrary set of initial conditions, with $\alpha=1/4$ and 
 observe the behaviour. This results in figure 6. Notice that one mode still dominates over the other, however 
@@ -266,7 +276,8 @@ we run a much longer and large scale simulation, with $\alpha=0.6$ and 32 masses
 36000 to observe the long term behaviour of the system. 
 We also start the simulation by imposing initial conditions that excite mode $k=1$. 
  we observe the classic FPU paradox - 
-instead of equipartitioning (same amplitude for all modes in equilibrium), the modes oscillate. For example, mode 1 starts decreasing and 
+instead of equipartitioning (same amplitude for all modes in equilibrium), 
+the modes (major trends) oscillate. Mode 1 starts decreasing and 
 mode 2 increases, but after sufficient time, mode 2 will star
  decreasing and mode 1 will increase again. 
 This periodic behaviour was the original paradox, discovered by Fermi, Pasta and Ulam. 
@@ -289,7 +300,7 @@ The traversal between modes is analogous to an autoparametric oscillator.
 Consider a mass attached to a spring, where the spring is hung from a ceiling and 
 is free to swing in a plane, resulting in a mix between spring and pendulum motion. 
 Such a system is "autoparametric", meaning that the mass will first trace out 
-the spring motion, bobbing up and down, and then soon becoming pendulum-like,
+the spring motion, bobbing up and down, and then soon become pendulum-like,
  swinging side to side. Over time, the 
 spring motion transforms into the pendulum motion and back, 
 indefinitely.

@@ -79,27 +79,59 @@ def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2,plot=True):
         if plot:
             plt.plot(times, localEnergies, label="Mode "+str(k))
         k+=1
-    print("Solving complete. See output plot for results.")
-    plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
-    if nonLin==2:
-        plt.title(r"Spectral Energies for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
-    else:
-        plt.title(r"Spectral Energies for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
-    plt.xlabel("Time")
-    plt.ylabel("Spectral Energy")
     if plot:
+        print("Solving complete. See output plot for results.")
+        plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
+        if nonLin==2:
+            plt.title(r"Spectral Energies for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+        else:
+            plt.title(r"Spectral Energies for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+        plt.xlabel("Time")
+        plt.ylabel("Spectral Energy")
         plt.show()
     return times, energies
 
-def plotEntropy(N, alpha, initConds, tMax, iters, nonLin=2):
+def plotEntropy(N, alpha, initConds, tMax, iters, nonLin):
     """
     Plot the Shannon entropy of the spectral energy
     """
-    times, energies = plotEnergies(N, alpha, initConds, tMax, iters, 2, False)
-    totalEnergy=0 
-    combinedEnergy=[]
-    for energy in energies:
-        totalEnergy+=energy[0]
+    times, energies = plotEnergies(N, alpha, initConds, tMax, iters, nonLin, False)
+    entropies=[]
+    j=0
+    while j<len(times):
+        entropy=0 
+        totalEnergy=0
+        for energy in energies:
+            totalEnergy+=energy[j]
+        k=0 
+        while k<N:
+            if energies[k][j]==0 or totalEnergy==0:
+                entropy+=0
+            else:
+                P=energies[k][j]/totalEnergy
+                entropy+=(P)*np.log(P)
+                #print("Total Energy=", totalEnergy, "|| Energy=", energies[k][j],"|| P=", P ,"|| entropy=", entropy)
+            k+=1
+        entropy=-entropy
+        entropies.append(entropy)
+    #    plt.plot(times[j],entropy, "o", color="black")
+       # print(times[j],entropy)
+        j+=1
+    #print(times, entropies)
+    print("Solving complete. See output plot for results.")
+    if nonLin==2:
+        plt.title(r"Shannon Entropy for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+    else:
+        plt.title(r"Shannon Entropy for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+    plt.xlabel("Time")
+    plt.ylabel("Shannon Entropy")
+    plt.axhline(np.log(N), color="red", label="Max Shannon Entropy")
+    plt.plot(times,entropies,color="black")
+    plt.legend()
+    plt.show()
+    return times, entropies
+
+#plotEntropy(31, 0.6 , exciteMode(31,1), 100000, 3000000, 2)
     
 def terminalWizard():
     print("=== FPU Spectral Analyser ===")

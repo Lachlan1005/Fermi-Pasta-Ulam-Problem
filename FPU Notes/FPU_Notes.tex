@@ -79,7 +79,7 @@ being that of the amplitudes.
     \end{bmatrix}
 \end{align}
 Now we must construct the matrix. Notice that all the entries on the diagonal are 
-$\omega^2-2$, since the coefficeints on $A_i$ is $\omega^2-2$. On their neighbours $A_{i-1}$ and $A_{i+1}$, 
+$\omega^2-2$, since the coefficients on $A_i$ is $\omega^2-2$. On their neighbours $A_{i-1}$ and $A_{i+1}$, 
 the entries are all $1$. Hence, the matrix is 
 \begin{align}
     \ve{M}=\begin{bmatrix}
@@ -199,13 +199,13 @@ and write out all its time evolution on the rows, then we obtain
 \end{align} 
 We can thus find the discrete sine transform via the following well known formula 
 \begin{align}
-    a_{kt}=\sqrt{\frac{2}{N}}\sum_ix_i(t)\sin{\frac{ik\pi}{N}}
+    a_{kt}=\sqrt{\frac{2}{N}}\sum_ix_i(t)\sin{\frac{ik\pi}{N}}=\sum_ix_{i}(t)\phi_{ki}
 \end{align}
 Notice the $t$ in the subscript means that we must apply the transformation across 
-all time. Notice that we sum across all $i$, and 
-$i$ is an index that appears in both $d_{it}$ and $\phi_{ik}$. This "summing over repeated index"
-is equivalent to the matrix product.
- Hence, the Fourier coefficients for every point in time $t$ can be found by 
+all time. Notice that we sum across all $i$, the index that the two matrices share. 
+This "summing over repeated index"
+is equivalent to the matrix product. Since $x_{i}(t)$ is discretised by $d_{it}$,
+ the discrete Fourier coefficients for every point in time $t$ can be found by 
 the following product 
 \begin{align}
     a_{kt}=\phi_{ki}d_{it}
@@ -215,7 +215,7 @@ evolution of each mode. We can easily find the momenta modes by constructing the
 in (18) but with momenta, and projecting that onto the basis matrix $\phi_{ki}$, which yields 
 the Fourier sine transform of momenta.
 
-\subsection{Excitatation of Modes}
+\subsection{Excitation of Modes}
 To excite a certain mode, say the $k$-th mode, 
 all we have to do is initialise the state vector 
 in a way such that all the masses'
@@ -281,7 +281,7 @@ the modes (major trends) oscillate. Mode 1 starts decreasing and
 mode 2 increases, but after sufficient time, mode 2 will star
  decreasing and mode 1 will increase again. 
 This periodic behaviour was the original paradox, discovered by Fermi, Pasta and Ulam. 
-In this simulation, the maximum Fourier amplidue for mode 1 decreases every major cycle.
+In this simulation, the maximum Fourier amplitude for mode 1 decreases every major cycle.
 We also compute the 
 spectral energies for the system, shown in figure 8. Here we see the same phenomenon 
 in terms of the energy - the energies gets 

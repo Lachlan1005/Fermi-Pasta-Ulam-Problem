@@ -64,7 +64,7 @@ def exciteMode(N, k):
         i+=2 
     return initConds
 
-def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2):
+def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2,plot=True):
     """
     Plot the spectral energies of the modes. Compute the energies in 
     accordance to the original FPU paper. 
@@ -76,7 +76,8 @@ def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2):
     while k<N:
         localEnergies=0.5*FTmom[k]**2+ 2* (FTdisp[k]**2) *((np.pi*k)/(2*N))**2
         energies.append(localEnergies)
-        plt.plot(times, localEnergies, label="Mode "+str(k))
+        if plot:
+            plt.plot(times, localEnergies, label="Mode "+str(k))
         k+=1
     print("Solving complete. See output plot for results.")
     plt.legend(loc='upper right',  bbox_to_anchor=(1.129, 1))
@@ -86,9 +87,20 @@ def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2):
         plt.title(r"Spectral Energies for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
     plt.xlabel("Time")
     plt.ylabel("Spectral Energy")
-    plt.show()
+    if plot:
+        plt.show()
     return times, energies
 
+def plotEntropy(N, alpha, initConds, tMax, iters, nonLin=2):
+    """
+    Plot the Shannon entropy of the spectral energy
+    """
+    times, energies = plotEnergies(N, alpha, initConds, tMax, iters, 2, False)
+    totalEnergy=0 
+    combinedEnergy=[]
+    for energy in energies:
+        totalEnergy+=energy[0]
+    
 def terminalWizard():
     print("=== FPU Spectral Analyser ===")
     N=int(input("Enter the number of masses: "))-1

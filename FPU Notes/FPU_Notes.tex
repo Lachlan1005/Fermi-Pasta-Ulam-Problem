@@ -325,4 +325,13 @@ thought as two different modes of which the system travels between.
     \includegraphics[scale=.36]{modeE.png}\\ 
     (Fig. 8)
 \end{center} 
+\section{Comparing with the FPU Paper}
+The orignal paper by FPU, published in 1955 computed the results for 
+$N=32$ and $\alpha=1$. The recurrence time (time measured from the midpoint of 
+the first "bump" to the midpoint of the second "bump") found was slightly over 
+$14000$ (the exact value is not known since the results are presented
+ on a hand drawn graph, and we need to infer roughly from that the recurrence time). When running the Python script 
+under these conditions, we obtain a recurrence time of 13500. This gives an error of 
+$~3.5\%$, 
+which is not bad for our simulation. 
 \end{document}

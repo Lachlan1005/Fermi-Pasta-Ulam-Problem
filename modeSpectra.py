@@ -93,7 +93,7 @@ def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2,plot=True):
 
 def plotEntropy(N, alpha, initConds, tMax, iters, nonLin):
     """
-    Plot the Shannon entropy of the spectral energy
+    Plot the Shannon entropy (how evenly energy is spread between modes) of the spectral energy
     """
     times, energies = plotEnergies(N, alpha, initConds, tMax, iters, nonLin, False)
     entropies=[]
@@ -112,7 +112,7 @@ def plotEntropy(N, alpha, initConds, tMax, iters, nonLin):
                 entropy+=(P)*np.log(P)
                 #print("Total Energy=", totalEnergy, "|| Energy=", energies[k][j],"|| P=", P ,"|| entropy=", entropy)
             k+=1
-        entropy=-entropy
+        entropy=-np.array(entropy)/np.log(N)
         entropies.append(entropy)
     #    plt.plot(times[j],entropy, "o", color="black")
        # print(times[j],entropy)
@@ -120,18 +120,18 @@ def plotEntropy(N, alpha, initConds, tMax, iters, nonLin):
     #print(times, entropies)
     print("Solving complete. See output plot for results.")
     if nonLin==2:
-        plt.title(r"Shannon Entropy for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+        plt.title(r"Normalised Shannon Entropy for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
     else:
-        plt.title(r"Shannon Entropy for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
+        plt.title(r"Normalised Shannon Entropy for cubic FPU problem, $\beta=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
     plt.xlabel("Time")
-    plt.ylabel("Shannon Entropy")
-    plt.axhline(np.log(N), color="red", label="Max Shannon Entropy")
+    plt.axhline(y=1, color="red",label="S/lnN=1")
+    plt.ylabel("Normalised Shannon Entropy (S/lnN)")
     plt.plot(times,entropies,color="black")
     plt.legend()
     plt.show()
     return times, entropies
 
-#plotEntropy(31, 0.6 , exciteMode(31,1), 100000, 3000000, 2)
+#plotEntropy(20, 1/6 , exciteMode(20,18), 300, 30000, 2)
     
 def terminalWizard():
     print("=== FPU Spectral Analyser ===")
@@ -162,6 +162,21 @@ def energyWizard():
     tMax=float(input("Enter the maximum simulation time: "))
     iters=int(input("Enter the maximum simulation timesteps: "))
     return plotEnergies(N,alpha,initConds,tMax, iters, nonLin)
+
+def entropyWizard():
+    print("=== FPU Shannon Entropy Analyser ===")
+    N=int(input("Enter the number of masses: "))-1
+    nonLin=int(input("Enter the nonlinearity exponent (2 or 3): "))
+    alpha=float(input("Enter the nonlinearity coefficient: "))
+    custom= int(input("Enter 0 for custom initial conditions or 1 to Excite a mode: ")) 
+    if custom==0:
+        initConds=fpu.automaticInitialiser(N)
+    else: 
+        k=int(input("Enter the mode you want to excite: "))
+        initConds=exciteMode(N,k)
+    tMax=float(input("Enter the maximum simulation time: "))
+    iters=int(input("Enter the maximum simulation timesteps: "))
+    return plotEntropy(N,alpha,initConds,tMax, iters, nonLin)
 
 #print(exciteMode(3,1))
 #plotSpectra(3, 1/4 , [0,1.08,0,0.9,0,1.05,0,1.03], 10, 500000, 2)

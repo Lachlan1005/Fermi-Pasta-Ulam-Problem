@@ -15,7 +15,7 @@ def normalModes(N):
         i=0 
         localModes=[]
         while i<=N:
-            localModes.append(np.sqrt(2/N)*np.sin((np.pi*k*i)/N))
+            localModes.append(np.sqrt(2/(N+1))*np.sin((np.pi*k*i)/(N+1)))
             i+=1 
         modes.append(localModes)
         k+=1 
@@ -60,7 +60,7 @@ def exciteMode(N, k):
     i=0 
     while i<2*(N+1):
         initConds.append(0)
-        initConds.append(np.sqrt(2/N)*np.sin((np.pi*k*(i//2))/N))
+        initConds.append(np.sqrt(2/(N+1))*np.sin((np.pi*k*(i//2))/(N+1)))
         i+=2 
     return initConds
 
@@ -74,7 +74,7 @@ def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2,plot=True):
     k=0 
     energies=[]
     while k<N:
-        localEnergies=0.5*FTmom[k]**2+ 2* (FTdisp[k]**2) *((np.pi*k)/(2*N))**2
+        localEnergies=0.5*FTmom[k]**2+ 2* (FTdisp[k]**2) *((np.pi*k)/(2*(N+1)))**2
         energies.append(localEnergies)
         if plot:
             plt.plot(times, localEnergies, label="Mode "+str(k))
@@ -112,7 +112,7 @@ def plotEntropy(N, alpha, initConds, tMax, iters, nonLin):
                 entropy+=(P)*np.log(P)
                 #print("Total Energy=", totalEnergy, "|| Energy=", energies[k][j],"|| P=", P ,"|| entropy=", entropy)
             k+=1
-        entropy=-np.array(entropy)/np.log(N)
+        entropy=-np.array(entropy)/np.log(N+1)
         entropies.append(entropy)
     #    plt.plot(times[j],entropy, "o", color="black")
        # print(times[j],entropy)
@@ -131,7 +131,7 @@ def plotEntropy(N, alpha, initConds, tMax, iters, nonLin):
     plt.show()
     return times, entropies
 
-#plotEntropy(20, 1/6 , exciteMode(20,18), 300, 30000, 2)
+plotEntropy(20, 1/6 , exciteMode(20,18), 5000000, 20000000, 2)
     
 def terminalWizard():
     print("=== FPU Spectral Analyser ===")
@@ -180,4 +180,4 @@ def entropyWizard():
 
 #print(exciteMode(3,1))
 #plotSpectra(3, 1/4 , [0,1.08,0,0.9,0,1.05,0,1.03], 10, 500000, 2)
-#plotEnergies(3, 1/4 , exciteMode(3,1), 30, 500000, 2)
+#plotEnergies(32, 0.6 , exciteMode(32,1), 36000, 1000000, 2)

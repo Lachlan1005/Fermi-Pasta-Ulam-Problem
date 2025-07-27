@@ -230,8 +230,8 @@ the $k$-th mode to the other modes,
 resulting in high amplitudes in the other modes over time. This contrasts with the linear case, 
 whereby if the initial conditions are set up perfectly, 
 only one mass will be excited for all time.
-\section{Results}
-Here are some results and examples from the Python code, implementing the methods outlined in the previous sections.
+\section{Elementary Results}
+Here are some elementary results and examples from the Python code, implementing the methods outlined in the previous sections.
 \subsection{Quadratic Perturbation}
 Here we will demonstrate the results when $\gamma=2$, which corresponds to the FPU-$\alpha$ problem.
 \subsubsection{Testing with a Known Case}
@@ -295,6 +295,7 @@ the system truly thermalise for large enough times.
 Unfortunately, this simulation was already heavy for the Macbook and the system is 
 nowhere near thermalising. We can only conclude that even if the system thermalises,
 the timescales required is too large to simulate on a typical computer. 
+
 \subsection{Analogous Autoparametric Systems}
 The traversal between modes is analogous to an autoparametric oscillator. 
 Consider a mass attached to a spring, where the spring is hung from a ceiling and 
@@ -306,6 +307,107 @@ spring motion transforms into the pendulum motion and back,
 indefinitely.
 The spring and pendulum motion can be 
 thought as two different modes of which the system travels between.
+\section{Comparing with the FPU Paper}
+The orignal paper by FPU, published in 1955 computed the results for 
+$N=32$ and $\alpha=1$. The recurrence time (time measured from the midpoint of 
+the first "bump" to the midpoint of the second "bump") found was slightly over 
+$14000$ (the exact value is not known since the results are presented
+ on a hand drawn graph, and we need to infer roughly from that the recurrence time). When running the Python script 
+under these conditions, we obtain a recurrence time of 13500. This gives an error of 
+$~3.5\%$, 
+which is not bad for our simulation. 
+\section{Shannon Entropy}
+To get a measure of how close the system is to thermalising, we need to introduce the notion 
+of Shannon Entropy. Consider a series of events $X_i=\{X_0,X_1,X_2,...X_i\}$, and its associated set of 
+probabilities $P(X_i)\equiv P_i$. A metric of "surprise" can then be constructed for these 
+probabilities - a high probability means low surprise (it will probably behave as expected), 
+while a low probability means high surprise. Moreover, a probability of 1 means no surprise whatsoever (it is guaranteed to behave as expected), 
+while a probability of 0 is infinitely surprising in that there is no way to predict what happens next. One such function is the 
+logarithm, $-\ln (P_i)$. This behaves as we expect, with $-\ln1=0$ and $-\ln0\to\infty$ from the right. The function 
+is also decreasing, which fits our inverse proportional-esque expectations. Undoubtedly, 
+the amount of information needed to specify a state $X_i$ is tied to this negative logarithm, since 
+the more unexpected things are, the more information needed to specify the thing (ex. if your flight is on time as expected, 
+then there isn't any information I need to tell you. However, if your flight is unexpectedly delayed, 
+then I will have to tell you some information, hence the amount of information needed is indeed tied to 
+the surprising-ness of the event). To figure out the overall amount of information needed 
+to convey an event, we simply weigh the surprising-ness by the overall probability. This is 
+because if an event is more probable, then it will occur more times, and vice versa. If 
+an event occurs more times, then more information will be needed to specify that event. Hence, 
+the information needed $S_i$ is given by 
+\begin{align}
+    S_i=-P_i\ln(P_i)
+\end{align}
+For the overall amount of information needed to 
+specify the whole set of events, we simply sum $S_i$ over all events $X_i$ to obtain $S$, 
+the Shannon entropy 
+\begin{align}
+    S=-\sum_{i}P_i\ln(P_i)
+\end{align}
+Which represents the amount of information needed to specify the set of 
+events $X_i$ by taking into account 
+the rates of occurance and "surprising-ness". We can now apply this concept to the 
+FPU problem. Here, the probability of observing each mode 
+(think of seeing each mode as its own distict event) $k$ is given by $E_k/E$, where $E$ is the 
+total energy. This is because the likelihood
+of observing any given mode is directly linked to its energy. For example, 
+if we excite the first mode, then it will have the most energy and dominate the system, 
+hence it is very likely that we will observe the first mode when observing the system.
+The Shannon entropy for any given mode 
+is then 
+\begin{align}
+    S_k=-\frac{E_k}{E}\ln(\frac{E_k}{E})
+\end{align}
+And the total Shannon entropy at any given time can be obtained similarly by summing over all $k$
+\begin{align}
+    S=-\sum_k\frac{E_k}{E}\ln(\frac{E_k}{E})
+\end{align}
+Consider a system of $N+1$ masses (and thsu $N+1$ modes). If the system has thermalised, 
+then we'd expect $E_0=E_1=...=E_N$, and 
+the only way for this to happen is such that 
+\begin{align}
+    E_k=\frac{E}{N+1}
+\end{align}
+Where the energy is evenly divided between the $N+1$ modes. Using (24), 
+we can now find the total Shannon entropy $S_T$ of a thermalised system.
+\begin{align}
+    S_T&=-\sum_{k=0}^N\frac{E/(N+1)}{E}\ln(\frac{E/(N+1)}{E})\\ 
+    &=\sum_{k=0}^N\frac{1}{N+1}\ln(N+1) = \frac{N+1}{N+1}\ln(N+1)\\ 
+    &= \ln(N+1)
+\end{align}
+o measure how close a system is to thermalising, we can then compare the Shannon entropy of its incumbent state 
+to the thermalised Shannon entropy. To show that this is the maximum Shannon entropy the system can attain, 
+we consider the case $N=1$, with 2 masses. Suppose the energy is split unevenly, where 
+\begin{align}
+    E_0&=\frac{1}{2}(1+\xi)E\\ 
+    E_1&=\frac{1}{2}(1-\xi)E
+\end{align}
+Where $-1\leq\xi\leq1$ and $\xi=0$ represents the thermalised, equipartitioned case where the energies are equal.
+It can be shown that $E=E_0+E_1$, since adding together (29) and (30) naturally leads to the cancelling out 
+of the $\xi$ terms. The Shannon entropy for the system is given by
+\begin{align}
+    S=-[\frac{E_0}{E}\ln(\frac{E_0}{E})+\frac{E_1}{E}\ln(\frac{E_1}{E})]
+\end{align}
+Rewriting it in terms of (29) and (30) gives us 
+\begin{align}
+    S&=-[\frac{(1+\xi)E/2}{E}\ln(\frac{(1+\xi)E/2}{E})+\frac{(1-\xi)E/2}{E}\ln(\frac{(1-\xi)E/2}{E})]\\ 
+    &=-\frac{1}{2}[(1+\xi)\ln(\frac{1+\xi}{2})+(1-\xi)\ln(\frac{1-\xi}{2})]
+\end{align}
+Now we find the $\xi$ that leads to the maximum $S$. Notice that $\xi=\pm1$ (all energy in one mode, ie. one mode is excited) leads to $S=0$, and $S$ must be 
+positive because $|\xi|<1$ makes the $1\pm\xi$ always positive, and the fact that $(1\pm\xi)/2<1$ means that 
+the logarithms will always be negative. Thus, multiplying everything my $-1/2$ makes the whole expression positive.
+To get between the zeroes at the endpoints,
+ the function must have at least one critical value. Therefore, in 
+the case that there only exists one critical value, it must result in a maximum. Let us now find the 
+maxima of (33). This can be easily done by differentiating and setting ther esult to zero. 
+\begin{align}
+    \dv{S}{\xi}&=-\frac{1}{2}\ln(\frac{1+\xi}{1-\xi})=0 \implies \boxed{\xi=0}
+\end{align}
+Which tells us indeed that the maximum Shannon entropy is achieved when $\xi=0$. This can be generalised to any $N$, which would 
+require the use of more and more variables to specify the partition of energy, and is not all that enlightening. We can expect that the excitation of any given
+ mode will put the system at $S=0$. The Shannon entropy will then climb as the energy is distributed among the modes. 
+We can plot $S/S_T$ as a function of time and observe its evolution. If the ratio climbs to and settles at 
+1, then that means the system has thermalised (ie. ergodic). If $S/S_T<1\ \forall \ t$, then it confirms that the system never 
+thermalises. 
 \section{Figures}
 \begin{center}
     \includegraphics[scale=.33]{2mass.png}\\ 
@@ -325,13 +427,4 @@ thought as two different modes of which the system travels between.
     \includegraphics[scale=.36]{modeE.png}\\ 
     (Fig. 8)
 \end{center} 
-\section{Comparing with the FPU Paper}
-The orignal paper by FPU, published in 1955 computed the results for 
-$N=32$ and $\alpha=1$. The recurrence time (time measured from the midpoint of 
-the first "bump" to the midpoint of the second "bump") found was slightly over 
-$14000$ (the exact value is not known since the results are presented
- on a hand drawn graph, and we need to infer roughly from that the recurrence time). When running the Python script 
-under these conditions, we obtain a recurrence time of 13500. This gives an error of 
-$~3.5\%$, 
-which is not bad for our simulation. 
 \end{document}

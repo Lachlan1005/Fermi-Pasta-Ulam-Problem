@@ -182,9 +182,9 @@ displace the masses identically and release from rest. If this results in a norm
 For any given system, it should be well known that there exists the same number of normal modes 
 as its degrees of freedom. The mode spectra of the FPU oscillator can be found as the spatial Fourier sine 
 transform of the displacement. The discrete Fourier coefficient $\phi_{ik}$ for the 
-$i-$th particle in the $k$-th mode is well known to be 
+$i-$th particle in the $k$-th mode is as follows
 \begin{align}
-    \phi_{ki}=\sqrt{\frac{2}{N}}\sin\frac{ik\pi}{N}
+    \phi_{ki}=\sqrt{\frac{2}{N+1}}\sin\frac{(i+1)(k+1)\pi}{N+1}
 \end{align}
 We can thus construct the matrix $\phi_{ki}$ where the rows represent modes and 
 columns represent particles. If we extract only the displacement from the state vector
@@ -199,7 +199,7 @@ and write out all its time evolution on the rows, then we obtain
 \end{align} 
 We can thus find the discrete sine transform via the following well known formula 
 \begin{align}
-    a_{kt}=\sqrt{\frac{2}{N}}\sum_ix_i(t)\sin{\frac{ik\pi}{N}}=\sum_ix_{i}(t)\phi_{ki}
+    a_{kt}=\sqrt{\frac{2}{N+1}}\sum_ix_i(t)\sin{\frac{(i+1)(k+1)\pi}{N+1}}=\sum_ix_{i}(t)\phi_{ki}
 \end{align}
 Notice the $t$ in the subscript means that we must apply the transformation across 
 all time. Notice that we sum across all $i$, the index that the two matrices share. 
@@ -317,7 +317,9 @@ under these conditions, we obtain a recurrence time of 13500. This gives an erro
 $~3.5\%$, 
 which is not bad for our simulation. 
 \section{Shannon Entropy}
-To get a measure of how close the system is to thermalising, we need to introduce the notion 
+Up until now, our metric of "thermalisation" and "equipartitioning" has been to just 
+look at the energy plots and see if all the modes have equal amplitude. While this 
+is a good way of gaining intuition, it is not the most rigorous way. To get a proper measure of how close the system is to thermalising, we need to introduce the notion 
 of Shannon Entropy. Consider a series of events $X_i=\{X_0,X_1,X_2,...X_i\}$, and its associated set of 
 probabilities $P(X_i)\equiv P_i$. A metric of "surprise" can then be constructed for these 
 probabilities - a high probability means low surprise (it will probably behave as expected), 
@@ -402,12 +404,81 @@ maxima of (33). This can be easily done by differentiating and setting ther esul
 \begin{align}
     \dv{S}{\xi}&=-\frac{1}{2}\ln(\frac{1+\xi}{1-\xi})=0 \implies \boxed{\xi=0}
 \end{align}
-Which tells us indeed that the maximum Shannon entropy is achieved when $\xi=0$. This can be generalised to any $N$, which would 
-require the use of more and more variables to specify the partition of energy, and is not all that enlightening. We can expect that the excitation of any given
- mode will put the system at $S=0$. The Shannon entropy will then climb as the energy is distributed among the modes. 
+Which tells us indeed that the maximum Shannon entropy is achieved when $\xi=0$. 
+We can expect that the excitation of any given
+ mode will put the system at $S=0$.
+With this intuition, we can now 
+examine the general case of $N$ masses. We can think of this problem as "maximising the Shannon entropy 
+under the constraint that all energies must add up to the total energy",
+ and treat it with Lagrange multipliers. For this, we will make use of two functions - 
+one for the Shannon entropy from (24), and one for the total energy constraint function. 
+\begin{align}
+    S&=-\sum_k\frac{E_k}{E}\ln(\frac{E_k}{E})\\ 
+    C&=\sum_kE_k=E
+\end{align}
+Where $S$ can be thought of as an $N+1$ dimensional surface (1 dimension for every $k$). 
+Similarly, the constraint $C$ will exist in the same space, imposing 
+its restrictions upon the Shannon entropy. 
+To make things easier, we will re-introduce our notation of 
+$P_k\equiv E_k/E$ and make the change in variables. Our equations now read 
+\begin{align}
+    S&=-\sum_kP_k\ln{P_k}\\
+    C&=\sum_kP_k=1
+\end{align}
+The last equation can be interpreted as the fact that
+ adding together all of probability space must result in a total probability of 1. 
+We can now implement the Lagrange multiplier method, which states that $\nabla S-\lambda\nabla C=0$, 
+where $\lambda$ is the Lagrange multiplier. We now find the gradients. 
+\begin{align}
+    \nabla S&=-\sum_k\pdv{(P_k\ln P_k)}{P_k}=-\sum_k(\ln P_k+1)\\ 
+    \nabla C& =\sum_k\pdv{P_k}{P_k}=\sum_k1
+\end{align}
+Hence we obtain the following expression 
+\begin{align}
+    \sum_k[-(\ln P_k+1)-\lambda]=0
+\end{align}
+Notice that for the result of any general sum (nontrivial cases where the terms don't cancel out)
+ to equal 0, the summand must all be 0. We can now say that for any $k$, 
+\begin{align}
+    -(\ln P_k+1)-\lambda=0\implies P_k=\frac{E_k}{E}=e^{-(\lambda+1)}
+\end{align}
+Notice how $P_k$ is independent of $k$. Since $P_k$ is just a scaled version of $E_k$, we can 
+also say that $E_k$ is independent of $k$. This means that all the energies are the same, 
+as there are no variation of energy between the mode number $k$. We can thus say that 
+\begin{align}
+    E_0=E_1=E_2=\dots=E_N
+\end{align}
+Which to be true, must satisfy the condition that the energy is distributed evenly, or mathematically 
+\begin{align}
+    E_k=\frac{E}{N+1}
+\end{align}
+Hence it can now be said that the maximum of the Shannon entropy must be a result of 
+the equipartitioning of energy between modes. In other words, the Shannon entropy will always be less than $S_T$ where 
+energy is not equally spread.  We can expect that the Shannon entropy will climb as the energy is distributed among the modes. 
 We can plot $S/S_T$ as a function of time and observe its evolution. If the ratio climbs to and settles at 
 1, then that means the system has thermalised (ie. ergodic). If $S/S_T<1\ \forall \ t$, then it confirms that the system never 
-thermalises. 
+thermalises. However, this requires the computation power to simulate behaviours of the long term ($t\sim10^8$), 
+which is not always realistic for regular computers.
+\newpage 
+\subsection{Results for Shannon Entropy}
+We can now implement equation (24) into Python, and present some findings.
+ The label on the $y$-axis is a misnomer. 
+It should be $S/\ln(N+1)$ instead of $S/\ln N$. This is a relic
+from a bug that set $E=\ln N$ that was fixed before. 
+\subsubsection{Short Term}
+We let the simulation run until $t=3000$ on a relatively small sample size ($N=20$) to obtain figure 9. Notice that $S/S_T$ indeed 
+begins from 0 and slowly rises. However it never reaches 1 in the alotted time, 
+meaning that in the time given, the system has not yet thermalised. It is interesting to note though, 
+that the steady upwards trend is promising.
+\subsubsection{Long Term}
+We now let a simulation with the same number of masses run until $t=10^6$ to observe the long term effects.
+ We see that the upwards trend 
+still exists very early on, but reaches a maximum of around 0.8 and stops increasing. After that, it shows a slow but clear decreasing trend, indicating that 
+the energy is once again slowly being concentrated into one of the modes. 
+\subsubsection{More Masses}
+We are now interested in the case of many masses, say 100. The result is shown in figure 11.
+We see that the Shannon entropy rises initially, as we expect. However, it soon stops and goes the other way. 
+For longer times, it displays oscillatory behaviour about $S\approx0.4$ and never seems to settle into equipartitioning. 
 \section{Figures}
 \begin{center}
     \includegraphics[scale=.33]{2mass.png}\\ 
@@ -425,6 +496,12 @@ thermalises.
     \includegraphics[scale=.36]{modea6k1.png}\\ 
     (Fig. 7)
     \includegraphics[scale=.36]{modeE.png}\\ 
-    (Fig. 8)
+    (Fig. 8)\\
+    \includegraphics[scale=.6]{SEN20t3000.png}\\ 
+    (Fig. 9)\\
+    \includegraphics[scale=.5]{SEN20LT.png}\\ 
+    (Fig. 10)\\
+    \includegraphics[scale=.45]{SEN100.png}\\ 
+    (Fig. 11)
 \end{center} 
 \end{document}

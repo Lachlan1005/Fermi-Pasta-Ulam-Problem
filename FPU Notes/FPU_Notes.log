@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 JUL 2025 01:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 JUL 2025 17:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -620,10 +620,10 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <2mass.png, id=48, 1151.30125pt x 560.0925pt>
 File: 2mass.png Graphic file (type png)
 <use 2mass.png>
-Package pdftex.def Info: 2mass.png  used on input line 484.
+Package pdftex.def Info: 2mass.png  used on input line 500.
 (pdftex.def)             Requested size: 379.93059pt x 184.83109pt.
 
-Overfull \hbox (34.93059pt too wide) in paragraph at lines 484--484
+Overfull \hbox (34.93059pt too wide) in paragraph at lines 500--500
  [] 
  []
 
@@ -633,17 +633,17 @@ Overfull \hbox (34.93059pt too wide) in paragraph at lines 484--484
 <4mass.png, id=53, 1143.27126pt x 568.1225pt>
 File: 4mass.png Graphic file (type png)
 <use 4mass.png>
-Package pdftex.def Info: 4mass.png  used on input line 486.
+Package pdftex.def Info: 4mass.png  used on input line 502.
 (pdftex.def)             Requested size: 377.28069pt x 187.48099pt.
 
-Overfull \hbox (32.28069pt too wide) in paragraph at lines 486--486
+Overfull \hbox (32.28069pt too wide) in paragraph at lines 502--502
  [][] 
  []
 
 <50mass.png, id=54, 1016.79875pt x 542.025pt>
 File: 50mass.png Graphic file (type png)
 <use 50mass.png>
-Package pdftex.def Info: 50mass.png  used on input line 488.
+Package pdftex.def Info: 50mass.png  used on input line 504.
 (pdftex.def)             Requested size: 335.54463pt x 178.86879pt.
 
 
@@ -651,12 +651,12 @@ Package pdftex.def Info: 50mass.png  used on input line 488.
 <modea0k1.png, id=60, 616.3025pt x 465.74pt>
 File: modea0k1.png Graphic file (type png)
 <use modea0k1.png>
-Package pdftex.def Info: modea0k1.png  used on input line 490.
+Package pdftex.def Info: modea0k1.png  used on input line 506.
 (pdftex.def)             Requested size: 308.1505pt x 232.86943pt.
 <modea25k1.png, id=61, 620.3175pt x 454.69875pt>
 File: modea25k1.png Graphic file (type png)
 <use modea25k1.png>
-Package pdftex.def Info: modea25k1.png  used on input line 492.
+Package pdftex.def Info: modea25k1.png  used on input line 508.
 (pdftex.def)             Requested size: 310.15799pt x 227.34882pt.
 
 
@@ -664,33 +664,33 @@ Package pdftex.def Info: modea25k1.png  used on input line 492.
 <modea25arb.png, id=68, 625.33624pt x 453.695pt>
 File: modea25arb.png Graphic file (type png)
 <use modea25arb.png>
-Package pdftex.def Info: modea25arb.png  used on input line 494.
+Package pdftex.def Info: modea25arb.png  used on input line 510.
 (pdftex.def)             Requested size: 312.66736pt x 226.84694pt.
 <modea6k1.png, id=69, 1003.75pt x 578.16pt>
 File: modea6k1.png Graphic file (type png)
 <use modea6k1.png>
-Package pdftex.def Info: modea6k1.png  used on input line 496.
+Package pdftex.def Info: modea6k1.png  used on input line 512.
 (pdftex.def)             Requested size: 361.34973pt x 208.13744pt.
 
-Overfull \hbox (16.34973pt too wide) in paragraph at lines 496--496
+Overfull \hbox (16.34973pt too wide) in paragraph at lines 512--512
  [][] 
  []
 
 
 
 [14 <./modea25k1.png> <./modea25arb.png>]
-<modeE.png, id=75, 896.34875pt x 544.0325pt>
+<modeE.png, id=75, 931.48pt x 556.0775pt>
 File: modeE.png Graphic file (type png)
 <use modeE.png>
-Package pdftex.def Info: modeE.png  used on input line 498.
-(pdftex.def)             Requested size: 322.6853pt x 195.85155pt.
+Package pdftex.def Info: modeE.png  used on input line 514.
+(pdftex.def)             Requested size: 335.33253pt x 200.18774pt.
 <SEN20t3000.png, id=76, 633.36626pt x 448.67625pt>
 File: SEN20t3000.png Graphic file (type png)
 <use SEN20t3000.png>
-Package pdftex.def Info: SEN20t3000.png  used on input line 500.
+Package pdftex.def Info: SEN20t3000.png  used on input line 516.
 (pdftex.def)             Requested size: 380.02269pt x 269.20782pt.
 
-Overfull \hbox (35.02269pt too wide) in paragraph at lines 500--500
+Overfull \hbox (35.02269pt too wide) in paragraph at lines 516--516
  [][] 
  []
 
@@ -700,20 +700,20 @@ Overfull \hbox (35.02269pt too wide) in paragraph at lines 500--500
 <SEN20LT.png, id=82, 746.79pt x 486.81876pt>
 File: SEN20LT.png Graphic file (type png)
 <use SEN20LT.png>
-Package pdftex.def Info: SEN20LT.png  used on input line 502.
+Package pdftex.def Info: SEN20LT.png  used on input line 518.
 (pdftex.def)             Requested size: 373.39407pt x 243.40878pt.
 
-Overfull \hbox (28.39407pt too wide) in paragraph at lines 502--502
+Overfull \hbox (28.39407pt too wide) in paragraph at lines 518--518
  [][] 
  []
 
 <SEN100.png, id=83, 848.16875pt x 531.9875pt>
 File: SEN100.png Graphic file (type png)
 <use SEN100.png>
-Package pdftex.def Info: SEN100.png  used on input line 504.
+Package pdftex.def Info: SEN100.png  used on input line 520.
 (pdftex.def)             Requested size: 381.67241pt x 239.39217pt.
 
-Overfull \hbox (36.67241pt too wide) in paragraph at lines 504--504
+Overfull \hbox (36.67241pt too wide) in paragraph at lines 520--520
  [][] 
  []
 
@@ -730,13 +730,13 @@ L3 programming layer <2025-01-18>
 Here is how much of TeX's memory you used:
  30618 strings out of 473190
  791034 string characters out of 5715801
- 1260952 words of memory out of 5000000
+ 1260953 words of memory out of 5000000
  53420 multiletter control sequences out of 15000+600000
  571611 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,15n,105p,799b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on FPU_Notes.pdf (17 pages, 1691863 bytes).
+Output written on FPU_Notes.pdf (17 pages, 1752813 bytes).
 PDF statistics:
  140 PDF objects out of 1000 (max. 8388607)
  76 compressed objects within 1 object stream

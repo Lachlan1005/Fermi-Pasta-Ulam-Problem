@@ -131,9 +131,10 @@ gets much longer with every mass added to the chain.
 We now perturb the spring potential by a nonlinear term. Let $\alpha$ be a small 
 positive number. Applying the perturbation, the Hamiltonian is thus given by 
 \begin{align}
-    H=\frac{1}{2}\sum_{i=0}^Np_i^2+\frac{1}{2}\sum_{i=0}^N[  (x_{i+1}-x_i)^2 + \alpha (x_{i+1}-x_i)^\gamma ]
+    H=\frac{1}{2}\sum_{i=0}^Np_i^2+\frac{1}{2}\sum_{i=0}^N[  (x_{i+1}-x_i)^2 + \kappa (x_{i+1}-x_i)^{\gamma+1} ]
 \end{align}
-Where $\gamma=2$ or 3, depending on whether the perturbation is quadratic or cubic. Applying the same Hamilton equations, we arrive at the following equations of motion 
+Where $\gamma=2$ or 3, depending on whether the perturbation is quadratic or cubic. 
+Applying the same Hamilton equations and defining $\alpha\equiv\kappa(\gamma+1)/2$, we arrive at the following equations of motion 
 \begin{align}
     \dot{p_i}&=(x_{i+1}+x_{i-1}-2x_i)+\alpha [(x_{i+1}-x_i)^\gamma-(x_i-x_{i-1})^\gamma]\\
     \dot{x_i}&=p_i
@@ -184,7 +185,7 @@ as its degrees of freedom. The mode spectra of the FPU oscillator can be found a
 transform of the displacement. The discrete Fourier coefficient $\phi_{ik}$ for the 
 $i-$th particle in the $k$-th mode is as follows
 \begin{align}
-    \phi_{ki}=\sqrt{\frac{2}{N+1}}\sin\frac{(i+1)(k+1)\pi}{N+1}
+    \phi_{ki}=\sqrt{\frac{2}{N+1}}\sin\frac{ik\pi}{N+1}
 \end{align}
 We can thus construct the matrix $\phi_{ki}$ where the rows represent modes and 
 columns represent particles. If we extract only the displacement from the state vector
@@ -199,7 +200,7 @@ and write out all its time evolution on the rows, then we obtain
 \end{align} 
 We can thus find the discrete sine transform via the following well known formula 
 \begin{align}
-    a_{kt}=\sqrt{\frac{2}{N+1}}\sum_ix_i(t)\sin{\frac{(i+1)(k+1)\pi}{N+1}}=\sum_ix_{i}(t)\phi_{ki}
+    a_{kt}=\sqrt{\frac{2}{N+1}}\sum_ix_i(t)\sin{\frac{ik\pi}{N+1}}=\sum_ix_{i}(t)\phi_{ki}
 \end{align}
 Notice the $t$ in the subscript means that we must apply the transformation across 
 all time. Notice that we sum across all $i$, the index that the two matrices share. 
@@ -328,9 +329,14 @@ while a probability of 0 is infinitely surprising in that there is no way to pre
 logarithm, $-\ln (P_i)$. This behaves as we expect, with $-\ln1=0$ and $-\ln0\to\infty$ from the right. The function 
 is also decreasing, which fits our inverse proportional-esque expectations. Undoubtedly, 
 the amount of information needed to specify a state $X_i$ is tied to this negative logarithm, since 
-the more unexpected things are, the more information needed to specify the thing (ex. if your flight is on time as expected, 
-then there isn't any information I need to tell you. However, if your flight is unexpectedly delayed, 
-then I will have to tell you some information, hence the amount of information needed is indeed tied to 
+the more unexpected things are, the more information needed to specify the thing 
+(ex. if your flight is on time as expected, 
+then there isn't any new information I need to tell you. 
+However, if your flight is unexpectedly delayed, 
+then I will have to tell you some new information. Hence the
+ "surprise event" itself carries 
+new informaion that needs to be conveyed. 
+In other words, the amount of information is tied to 
 the surprising-ness of the event). To figure out the overall amount of information needed 
 to convey an event, we simply weigh the surprising-ness by the overall probability. This is 
 because if an event is more probable, then it will occur more times, and vice versa. If 
@@ -363,7 +369,7 @@ And the total Shannon entropy at any given time can be obtained similarly by sum
 \begin{align}
     S=-\sum_k\frac{E_k}{E}\ln(\frac{E_k}{E})
 \end{align}
-Consider a system of $N+1$ masses (and thsu $N+1$ modes). If the system has thermalised, 
+Consider a system of $N+1$ masses (and thus $N+1$ modes). If the system has thermalised, 
 then we'd expect $E_0=E_1=...=E_N$, and 
 the only way for this to happen is such that 
 \begin{align}
@@ -396,11 +402,11 @@ Rewriting it in terms of (29) and (30) gives us
 \end{align}
 Now we find the $\xi$ that leads to the maximum $S$. Notice that $\xi=\pm1$ (all energy in one mode, ie. one mode is excited) leads to $S=0$, and $S$ must be 
 positive because $|\xi|<1$ makes the $1\pm\xi$ always positive, and the fact that $(1\pm\xi)/2<1$ means that 
-the logarithms will always be negative. Thus, multiplying everything my $-1/2$ makes the whole expression positive.
+the logarithms will always be negative. Thus, multiplying everything by $-1/2$ makes the whole expression positive.
 To get between the zeroes at the endpoints,
  the function must have at least one critical value. Therefore, in 
 the case that there only exists one critical value, it must result in a maximum. Let us now find the 
-maxima of (33). This can be easily done by differentiating and setting ther esult to zero. 
+maximum    of (33). This can be easily done by differentiating and setting the result to zero. 
 \begin{align}
     \dv{S}{\xi}&=-\frac{1}{2}\ln(\frac{1+\xi}{1-\xi})=0 \implies \boxed{\xi=0}
 \end{align}
@@ -430,12 +436,13 @@ The last equation can be interpreted as the fact that
 We can now implement the Lagrange multiplier method, which states that $\nabla S-\lambda\nabla C=0$, 
 where $\lambda$ is the Lagrange multiplier. We now find the gradients. 
 \begin{align}
-    \nabla S&=-\sum_k\pdv{(P_k\ln P_k)}{P_k}=-\sum_k(\ln P_k+1)\\ 
-    \nabla C& =\sum_k\pdv{P_k}{P_k}=\sum_k1
+    \nabla S&=-\sum_k\pdv{(P_k\ln P_k)}{P_k}\hat{P_k}=-\sum_k(\ln P_k+1)\hat{P_k}\\ 
+    \nabla C& =\sum_k\pdv{P_k}{P_k}\hat{P_k}=\sum_k\hat{P_k}
 \end{align}
+Where $\hat{P_k}$ are the unit vectors associated with each degree of freedom $P_k$ that the surfaces resides in. 
 Hence we obtain the following expression 
 \begin{align}
-    \sum_k[-(\ln P_k+1)-\lambda]=0
+    \sum_k[-(\ln P_k+1)-\lambda]\hat{P_k}=0
 \end{align}
 Notice that for the result of any general sum (nontrivial cases where the terms don't cancel out)
  to equal 0, the summand must all be 0. We can now say that for any $k$, 
@@ -446,7 +453,7 @@ Notice how $P_k$ is independent of $k$. Since $P_k$ is just a scaled version of 
 also say that $E_k$ is independent of $k$. This means that all the energies are the same, 
 as there are no variation of energy between the mode number $k$. We can thus say that 
 \begin{align}
-    E_0=E_1=E_2=\dots=E_N
+    E_0=E_1=E_2=\dots=E_N=Ee^{-(\lambda+1)}
 \end{align}
 Which to be true, must satisfy the condition that the energy is distributed evenly, or mathematically 
 \begin{align}
@@ -466,12 +473,12 @@ We can now implement equation (24) into Python, and present some findings.
 It should be $S/\ln(N+1)$ instead of $S/\ln N$. This is a relic
 from a bug that set $E=\ln N$ that was fixed before. 
 \subsubsection{Short Term}
-We let the simulation run until $t=3000$ on a relatively small sample size ($N=20$) to obtain figure 9. Notice that $S/S_T$ indeed 
+We let the simulation run until $t=3\times10^3$ on a relatively small sample size ($N=20$) to obtain figure 9. Notice that $S/S_T$ indeed 
 begins from 0 and slowly rises. However it never reaches 1 in the alotted time, 
 meaning that in the time given, the system has not yet thermalised. It is interesting to note though, 
 that the steady upwards trend is promising.
 \subsubsection{Long Term}
-We now let a simulation with the same number of masses run until $t=10^6$ to observe the long term effects.
+We now let a simulation with the same number of masses run until $t=5\times10^6$ to observe the long term effects.
  We see that the upwards trend 
 still exists very early on, but reaches a maximum of around 0.8 and stops increasing. After that, it shows a slow but clear decreasing trend, indicating that 
 the energy is once again slowly being concentrated into one of the modes. 
@@ -479,6 +486,15 @@ the energy is once again slowly being concentrated into one of the modes.
 We are now interested in the case of many masses, say 100. The result is shown in figure 11.
 We see that the Shannon entropy rises initially, as we expect. However, it soon stops and goes the other way. 
 For longer times, it displays oscillatory behaviour about $S\approx0.4$ and never seems to settle into equipartitioning. 
+\subsection{General Observations}
+After running many more simulations for times $\sim10^3-10^6$ on varying numbers of masses,
+we notice that the normalised Shannon entropy never reaches or shows any signs of 
+steadily reaching 1 in the long run. All trials have resulted in behaviours of two kinds: 
+the first is reaching a plateau somewhere below 1, and the second is oscillations around some point below 1. 
+It certainly looks like, at least at these timescales, 
+ that the system has a certain "stable state" which it settles into, which is 
+distinct from the equipartitioned state. However, we currently do not know what these states are nor how to predict them, 
+but more work will be done to study this behaviour. 
 \section{Figures}
 \begin{center}
     \includegraphics[scale=.33]{2mass.png}\\ 

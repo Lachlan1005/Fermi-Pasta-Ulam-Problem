@@ -9,7 +9,7 @@ The FPU problem reduces to a simple 1D linear chain of masses in the unperturbed
 
 ## Perturbed Case
 
-The main focus of this project. The parameter $\gamma$ can be set to 2 or 3 to solve for the quadratic or cubic perturbation cases respectively. The energies and states are solved for in **nonLin_FPU.py**, and the modal spectra are solved for in **modeSpectra.py**.
+The main focus of this project. The parameter $\gamma$ can be set to 2 or 3 to solve for the quadratic or cubic perturbation cases respectively. The energies and states are solved for in **nonLin_FPU.py**, and the modal spectra are solved for in **modeSpectra.py**. To study thermalisation more rigorously, **modeSpectra.py** is also able to solve for the Shannon entropies of the system. 
 
 ## Instructions and Notes
 

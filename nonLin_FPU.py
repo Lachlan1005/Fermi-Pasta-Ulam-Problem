@@ -272,7 +272,7 @@ def videoPlotter(N, alpha, initConds, tMax, iters, nonLin=2, fpsCustom=100):
     print(" Video saved as 2D_Sim_Output.mp4 with path ", output_path)
 
 #videoPlotter(100, 0.25, automaticInitialiser(100,0,1), 200, 1000, 2, 50)
-videoPlotter(100, 0.5, exciteMode(100,2), 500, 1000, 50)
+#videoPlotter(100, 0.5, exciteMode(100,2), 500, 1000, 50)
 #plotHamiltonian(3, 0.25, [0,1.08,0,0.9,0,1.05,0,1.03], 10, 500000)
 #plotHamiltonian(32, 0.25, automaticInitialiser(32,0,1), 100, 100000)
 #print(hamiltonian(3, 0.25, [0,1.08,0,0.9,0,1.05,0,1.03], 30, 10000))

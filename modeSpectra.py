@@ -12,10 +12,10 @@ def normalModes(N):
     k=0 
     modes=[]
     while k<=N:
-        i=0 
+        i=0
         localModes=[]
         while i<=N:
-            localModes.append(np.sqrt(2/(N+1))*np.sin((np.pi*(k)*(i))/(N+1)))
+            localModes.append(np.sqrt(2/(N+2))*np.sin((np.pi*(k)*(i+1))/(N+2)))
             i+=1 
         modes.append(localModes)
         k+=1 
@@ -38,7 +38,7 @@ def plotSpectra(N, alpha, initConds, tMax, iters, nonLin=2):
     print("Solver running...")
     times, FTdisp, FTmom  = modalSpectra(N, alpha, initConds, tMax, iters, nonLin)
     for i in range(N+1):
-        plt.plot(times, FTdisp[i], label="Mode k="+str(i))
+        plt.plot(times, FTdisp[i+1], label="Mode k="+str(i))
     if nonLin==2:
         plt.title(r"Modal Spectra for quadratic FPU problem, $\alpha=$"+ str(round(alpha*100)/100)+", N="+str(N)+" ("+str(N+1)+" masses)")
     else:
@@ -75,7 +75,7 @@ def plotEnergies(N, alpha, initConds, tMax, iters, nonLin=2,plot=True):
     energies=[]
     print("Plotting results...")
     while k<N:
-        localEnergies=0.5*FTmom[k]**2+  2* (FTdisp[k]**2) *(np.sin((np.pi*(k))/(2*(N+1))))**2
+        localEnergies=0.5*FTmom[k]**2+  2* (FTdisp[k]**2) *(np.sin((np.pi*(k))/(2*(N+2))))**2
         energies.append(localEnergies)
         if plot:
             plt.plot(times, localEnergies, label="Mode "+str(k))
@@ -181,4 +181,4 @@ def entropyWizard():
 
 #print(exciteMode(3,1))
 #plotSpectra(3, 1/4 , [0,1.08,0,0.9,0,1.05,0,1.03], 10, 500000, 2)
-#plotEnergies(32, 1 , exciteMode(32,1), 18000, 1000000, 2)
+#plotEnergies(31, 1 , exciteMode(31,1), 18000, 1000000, 2)
